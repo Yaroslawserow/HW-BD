@@ -31,18 +31,18 @@ CREATE TABLE rating(
 
 CREATE TABLE ORDER_ITEMS(
 	order_id INT NOT NULL,
-	client_id INT NOT NULL,
 	book_id INT NOT NULL,
 	FOREIGN KEY (order_id) REFERENCES time_of_orders(order_id),
-	FOREIGN KEY (client_id) REFERENCES client(client_id),
 	FOREIGN KEY (book_id) REFERENCES book(book_id)
 ) ENGINE = MyISAM ;
 
 CREATE TABLE time_of_orders(
 	order_id INT NOT NULL,
+	client_id INT NOT NULL,
 	open_date datetime NOT NULL,
 	close_date datetime,
 	PRIMARY KEY (order_id)
+	FOREIGN KEY (client_id) REFERENCES client(client_id),
 ) ENGINE = MyISAM ;
 
 CREATE TABLE CLIENT(
