@@ -41,8 +41,8 @@ CREATE TABLE time_of_orders(
 	client_id INT NOT NULL,
 	open_date datetime NOT NULL,
 	close_date datetime,
-	PRIMARY KEY (order_id)
-	FOREIGN KEY (client_id) REFERENCES client(client_id),
+	PRIMARY KEY (order_id),
+	FOREIGN KEY (client_id) REFERENCES client(client_id)
 ) ENGINE = MyISAM ;
 
 CREATE TABLE CLIENT(
