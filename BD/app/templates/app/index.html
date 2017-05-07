@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>APP</title>
+</head>
+<body>
+<div>
+    {% if response %}
+        {{ response }}
+    {% endif %}
+</div>
+<form action="" method="POST">
+    {% csrf_token %}
+<input type="text" id="t1" name="t1">
+<input type="submit" id="b1" name="b1" value="Поиск">
+    </form>
+</body>
+</html>
