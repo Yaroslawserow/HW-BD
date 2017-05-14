@@ -11,13 +11,7 @@ def open_order(book_id, first_name, second_name, email, phone_number, delivery_a
     list_args = ['book0book_id', 'client0client_id', 'time_of_orders0open_date']#, 'book0quantity_in_stock', 'autor0first_name','autor0middle_name', 'autor0short_name', 'rating0rating', 'rating0count_voted']
     conn = psycopg2.connect("dbname='testpython' user='matt' host='localhost' password='password'")
     cur = conn.cursor()
-    print(book_id, first_name, second_name, email, phone_number, delivery_address)
-    print(type(book_id))
-    #print("\n")
     book_id0 = int(book_id)
-    book_id = book_id0
-    print(book_id)
-    #print("\n")
     c = (first_name, second_name, email, phone_number, delivery_address,)
     cur.execute("SELECT client_id FROM client WHERE first_name = %s AND second_name = %s AND email = %s AND phone_number = %s AND delivery_address = %s;", c)
     client_id = cur.fetchall()
@@ -31,7 +25,6 @@ def open_order(book_id, first_name, second_name, email, phone_number, delivery_a
         cur.execute("SELECT client_id FROM client WHERE first_name = %s AND second_name = %s AND email = %s AND phone_number = %s AND delivery_address = %s;",c)
         client_id = cur.fetchall()
     client_id = client_id[0][0]
-    #print(open_date.timestamp())
     open_date = str(open_date)
     open_date = open_date[:open_date.rfind(".")]
     print(open_date)
@@ -42,7 +35,7 @@ def open_order(book_id, first_name, second_name, email, phone_number, delivery_a
     except psycopg2.Error as e:
         print(e)
         conn.rollback()
-        return ('Error1: New order not add')
+        return ('Error: New order not add')
 
     cur.execute("SELECT order_id FROM time_of_orders WHERE client_id = %s AND open_date = %s;", (client_id, open_date,))
     order_id = cur.fetchall()[0][0]
@@ -53,7 +46,27 @@ def open_order(book_id, first_name, second_name, email, phone_number, delivery_a
     except psycopg2.Error as e:
         print(e)
         conn.rollback()
-        return ('Error2: New order not add')
+        return ('Error: New order not add')
+    command = "SELECT quantity_in_stock FROM book WHERE book_id = %s;"
+    try:
+        cur.execute(command, (book_id,))
+        quantity_in_stock = cur.fetchall()[0][0]
+        if quantity_in_stock > 0:
+            quantity_in_stock += - 1
+        else:
+            return ('Error: New order not add - Not enough of these books')
+    except psycopg2.Error as e:
+        print(e)
+        conn.rollback()
+        return ('Error: New order not add')
+    command = "UPDATE book SET quantity_in_stock = %s WHERE book_id = %s;"
+    try:
+        cur.execute(command, (quantity_in_stock, book_id))
+        conn.commit()
+    except psycopg2.Error as e:
+        print(e)
+        conn.rollback()
+        return ('Error: New order not add')
     return ('New order add')
 
 
