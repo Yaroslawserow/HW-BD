@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>book</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+</head>
+<body>
+<form action="" method="POST">
+    {% csrf_token %}
+    <span style="margin-left:20%">
+        book_id
+    </span><br>
+     <input type="text" id="t10" name="t10" style="margin-left:20%"><br>
+    <span style="margin-left:20%">
+        name
+    </span><br>
+
+<input type="text" id="t5" name="t5" style="margin-left:20%"><br>
+    <span style="margin-left:20%" > second name</span><br>
+    <input type="text" id="t6" name="t6" style="margin-left:20%"><br>
+    <span style="margin-left:20%">  email </span><br>
+    <input type="text" id="t7" name="t7" style="margin-left:20%"><br>
+    <span style="margin-left:20%"> phone number </span><br>
+    <input type="text" id="t8" name="t8" style="margin-left:20%"><br>
+    <span style="margin-left:20%"> delivery address </span><br>
+    <input type="text" id="t9" name="t9" style="margin-left:20%">
+    <input type="submit" id="b3" name="b3" value=submit>
+    </form>
+<div>
+    {% if response %}
+        {{ response }}
+    {% endif %}
+</div>
+</body>
+</html>
