@@ -2,18 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>APP</title>
+    <title>book shop</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <style>
+        #header {
+    height: 82px;
+    background: #BC8F8F; border-bottom: 4px solid #231F20;
+   }
+        #header h1 { padding: 20px; margin: 0; }
+        #sidebar { position: absolute; }
+        #sidebar {
+    width: 500px; background: #D2691E; border-right: 2px solid #231F20;
+    top: 82px;
+    bottom: 0;
+   }
+        #answer { position: absolute; }
+        #answer {  width: 800px; margin-left: 510px;}
+        #input { position: absolute; }
+        #input {
+            width: 500px;
+            top: 300px;
+        }
+    </style>
 </head>
 <body>
-<div>
+<div id = "header">
+    <h1>
+        To read books is quite fun
+    </h1>
+</div>
+<form id = "sidebar" action="" method="POST">
+    {% csrf_token %}
+    <span style="margin-left:20%">
+        book title
+    </span><br>
+<input type="text" id="t1" name="t1" style="margin-left:20%"><br>
+    <span style="margin-left:20%" > autor</span><br>
+    <input type="text" id="t2" name="t2" style="margin-left:20%">
+    <input type="submit" id="b1" name="b1" value="Search"><br>
+    <span style="margin-left:20%"> jenre </span><br>
+    <input type="text" id="t3" name="t3" style="margin-left:20%">
+    </form>
+<form action="lol/" method="POST" id = "input">
+    {% csrf_token %}
+    <input type="submit" id="b2" name="b2" value="Çàêàçàòü">
+</form>
+<div id = "answer">
     {% if response %}
-        {{ response }}
+        {{ response|linebreaksbr }}
     {% endif %}
 </div>
-<form action="" method="POST">
-    {% csrf_token %}
-<input type="text" id="t1" name="t1">
-<input type="submit" id="b1" name="b1" value="Поиск">
-    </form>
+
 </body>
 </html>
