@@ -7,6 +7,8 @@ import datetime
 path = "/home/andrey/Project_BD-master/BD/app/"
 
 def open_order(book_id, first_name, second_name, email, phone_number, delivery_address):
+    if ((book_id+ first_name+ second_name+ email+ phone_number+ delivery_address).find(';') != -1):
+        return ('Error: New order not add - Invalid input data')
     open_date = datetime.datetime.now()
     list_args = ['book0book_id', 'client0client_id', 'time_of_orders0open_date']#, 'book0quantity_in_stock', 'autor0first_name','autor0middle_name', 'autor0short_name', 'rating0rating', 'rating0count_voted']
     conn = psycopg2.connect("dbname='testpython' user='matt' host='localhost' password='password'")
@@ -69,7 +71,7 @@ def open_order(book_id, first_name, second_name, email, phone_number, delivery_a
         return ('Error: New order not add')
     return ('New order add')
 
-
+"""
 def View_current_orders():
     conn = psycopg2.connect("dbname='testpython' user='matt' host='localhost' password='password'")
     cur = conn.cursor()
@@ -98,5 +100,5 @@ def close_order(order_id):
         conn.rollback()
         return "Error: Order " + order_id + " not update"
 
-
+"""
 #open_order('13', 'ebrb', 'AWBA', 'btetbeb', '816618716', 'ebrberberbe')
